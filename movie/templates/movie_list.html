@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body style="padding-left: 1cm; padding-right: 1cm; background-color: #6f94c6">
+    <div>
+        <h3 style="text-align: center">Movies</h3>
+    </div>
+    <div class="row" style="height: 15cm">
+        {% for movie in movies %}
+        <div class="column img-thumbnail" style="width: 7cm; height: 13cm; background-color: #aaaaaa">
+            <h5 style="text-align: center"> {{ movie.name }}</h5>
+            <h6>Yönetmen : {{ movie.director }}</h6>
+            <h6>Yayınlanma Tarihi :{{ movie.publish_date }}</h6>
+            <img src="{{ movie.banner.url }}" class="img-thumbnail">
+        </div>
+            {% endfor %}
+    </div>
+    <br>
+    <br>
+
+</body>
+</html>
