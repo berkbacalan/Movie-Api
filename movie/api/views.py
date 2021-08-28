@@ -5,6 +5,7 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelM
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
+from rest_framework.permissions import AllowAny
 
 from movie.api.pagination import CustomPagination, SmallPagination, LargePagination
 from movie.api.permissions import IsAdminUserOrReadOnly
@@ -37,6 +38,7 @@ class MovieListCreateAPIView(ListModelMixin, UpdateModelMixin, CreateModelMixin,
     def put(self, request, *args, **kwargs):
         return self.update(self, request, *args, **kwargs)
 
+@permission_classes([IsAdminUserOrReadOnly])
 @renderer_classes([JSONRenderer])
 @api_view(['GET', 'POST'])
 def category_list_create_api_view(request):

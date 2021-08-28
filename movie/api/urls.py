@@ -7,7 +7,7 @@ urlpatterns = [
     path('category/', api_views.category_list_create_api_view, name='category-list'),
     path('category/<int:pk>', api_views.category_detail_api_view, name='category-detail'),
     path('movie-concrete/', api_views.MovieConcreteAPIView.as_view(), name='movie-concrete-views'),
-    path('movie-concrete/<int:pk>', api_views.MovieDetailConcreteAPIView.as_view(), name='movie-concrete-views'),
+    path('movie-concrete/<int:pk>', api_views.MovieDetailConcreteAPIView.as_view(), name='movie-id-concrete-views'),
     path('category/<int:pk>/subcategory-add/', api_views.SubcategoryCreateAPIView.as_view(),
          name='add-subcategory'),
     path('subcategories/<int:pk>', api_views.SubcategoryDetailAPIView.as_view(),
