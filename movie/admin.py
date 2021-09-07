@@ -32,4 +32,5 @@ class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'parent_category']
     search_fields = ['name']
 
+
 admin.site.register(Subcategory, SubcategoryAdmin)

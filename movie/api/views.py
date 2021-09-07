@@ -20,8 +20,6 @@ class MovieListCreateAPIView(ListModelMixin, UpdateModelMixin, CreateModelMixin,
     pagination_class = CustomPagination
     renderer_classes = [BrowsableAPIRenderer]
 
-    '''You may filter movies by name.'''
-
     def get_queryset(self):
         queryset = Movie.objects.all()
         movie_name = self.request.query_params.get('movie', None)
@@ -38,6 +36,7 @@ class MovieListCreateAPIView(ListModelMixin, UpdateModelMixin, CreateModelMixin,
     def put(self, request, *args, **kwargs):
         return self.update(self, request, *args, **kwargs)
 
+
 @permission_classes([IsAdminUserOrReadOnly])
 @renderer_classes([JSONRenderer])
 @api_view(['GET', 'POST'])
@@ -53,6 +52,7 @@ def category_list_create_api_view(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 @renderer_classes([JSONRenderer])
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -79,7 +79,6 @@ def category_detail_api_view(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# ConcreteViews
 class MovieConcreteAPIView(generics.ListCreateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
@@ -90,8 +89,6 @@ class MovieConcreteAPIView(generics.ListCreateAPIView):
     renderer_classes = [BrowsableAPIRenderer]
 
 
-
-# ConcreteViews
 class MovieDetailConcreteAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
@@ -123,7 +120,7 @@ class SubcategoryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 def movie_count_api_view(request):
     if request.method == 'GET':
         movie_count = Movie.objects.all().count()
-        content = {'movie_count':movie_count}
+        content = {'movie_count': movie_count}
         return Response(content, status=status.HTTP_200_OK)
 
 
@@ -134,6 +131,7 @@ def category_count_api_view(request):
         category_count = Category.objects.all().count()
         content = {'category_count': category_count}
         return Response(content, status=status.HTTP_200_OK)
+
 
 @renderer_classes([JSONRenderer])
 @api_view(['GET'])
@@ -151,9 +149,11 @@ def category_subcategory_count_apiview(request):
         context = {}
         categories = Category.objects.all()
         for category in categories.iterator():
-            subcategories_count = Subcategory.objects.filter(parent_category=category).count()
-            context.update({str(category) : subcategories_count})
+            subcategories_count = Subcategory.objects.filter(
+                parent_category=category).count()
+            context.update({str(category): subcategories_count})
         return Response(context, status=status.HTTP_200_OK)
+
 
 @permission_classes([IsAdminUserOrReadOnly])
 @renderer_classes([JSONRenderer])
@@ -165,8 +165,9 @@ def categories_of_movie_apiview(request, pk):
         movie = Movie.objects.filter(id=pk).values('name')
         categories_ids = Movie.objects.filter(id=pk).values('category')
         for id in categories_ids.iterator():
-            category = Category.objects.filter(id=id['category']).values('name')
-            print("-->",category)
+            category = Category.objects.filter(
+                id=id['category']).values('name')
+            print("-->", category)
             ctx.append(category[0]['name'])
-        context.update({movie[0]['name'] : ctx})
+        context.update({movie[0]['name']: ctx})
         return Response(context, status=status.HTTP_200_OK)

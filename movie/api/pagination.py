@@ -11,7 +11,6 @@ class LargePagination(PageNumberPagination):
 
 
 class CustomPagination(PageNumberPagination):
-    '''Custom pagination usage.'''
     def get_paginated_response(self, data):
         return Response({
             'links': {
