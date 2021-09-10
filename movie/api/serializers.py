@@ -16,7 +16,6 @@ class CategorySerializer(serializers.Serializer):
     name = serializers.CharField()
 
     def create(self, validation_data):
-        print(validation_data)
         return Category.objects.create(**validation_data)
 
     def update(self, instance, validation_data):

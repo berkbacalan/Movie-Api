@@ -167,7 +167,6 @@ def categories_of_movie_apiview(request, pk):
         for id in categories_ids.iterator():
             category = Category.objects.filter(
                 id=id['category']).values('name')
-            print("-->", category)
             ctx.append(category[0]['name'])
         context.update({movie[0]['name']: ctx})
         return Response(context, status=status.HTTP_200_OK)
