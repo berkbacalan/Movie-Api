@@ -1,2 +1,1 @@
-# codeck
- DjangoMovieApp
+# Movie api with Django Rest Framework.
